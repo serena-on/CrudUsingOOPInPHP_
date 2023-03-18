@@ -13,7 +13,6 @@ function ReadAll() {
     $entrepots = new Entrepot($dataBase);
     $getEntrepots = $entrepots->getEntrepots();
     $rowCount = $getEntrepots->rowCount();
-    var_dump($getEntrepots->fetch(\PDO::FETCH_ASSOC));
     if ($rowCount > 0) {
         $entrepotArr = array();
         $entrepotArr["body"] = array();

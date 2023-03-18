@@ -43,5 +43,3 @@ function updateAgent_() {
 
 // var_dump($_POST);
 updateAgent_();
-// Modify Table Agent in Database
-// ALTER TABLE `Agent` ADD `NumMatr` INT NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST;
