@@ -9,7 +9,7 @@ class Database
     private $host = 'localhost';
     private $dataBaseName = 'AGRI_DIGITAL';
     private $dataBaseUser = 'root';
-    private $dataBasePassword = '';
+    private $dataBasePassword = 'root';
     private $dsn;
     private $connection;
 

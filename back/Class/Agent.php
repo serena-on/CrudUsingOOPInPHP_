@@ -7,10 +7,12 @@ use Class\Interface\CrudAgentInterface;
 
 class Agent implements CrudAgentInterface
 {
-    private $dataBaseTable = "agent";
+    private $dataBaseTable = "AGENT";
 
     private $connection;
+    private string $Email;
     private int $NumMatr;
+    private string $Username;
     private string $NomAgent;
     private string $PrenomAgent;
     private string $DateNais;
@@ -32,19 +34,21 @@ class Agent implements CrudAgentInterface
         return $query;
     }
 
-    public function getAgent(string $PrenomAgentIn)
+    public function getAgent(string $UsernameIn)
     {
-        $this->PrenomAgent = htmlspecialchars(strip_tags($PrenomAgentIn));
-        $sql = "SELECT * FROM " . $this->dataBaseTable . " WHERE PrenomAgent = :PrenomAgent";
+        $this->Username = htmlspecialchars(strip_tags($UsernameIn));
+        $sql = "SELECT * FROM " . $this->dataBaseTable . " WHERE Username = :Username";
         $query = $this->connection->prepare($sql);
-        $query->bindParam(":PrenomAgent", $this->PrenomAgent);
+        $query->bindParam(":Username", $this->Username);
         $query->fetchAll(\PDO::FETCH_ASSOC);
         $query->execute();
         return $query;
     }
 
-    public function createAgent(string $NomAgentIn, string $PrenomAgentIn, string $DateNaisIn, string $DatePSceIn, string $passwordIn)
+    public function createAgent(string $EmailIn, string $UsernameIn, string $NomAgentIn, string $PrenomAgentIn, string $DateNaisIn, string $DatePSceIn, string $passwordIn)
     {
+        $this->Email = htmlspecialchars(strip_tags($EmailIn));
+        $this->Username = htmlspecialchars(strip_tags($UsernameIn));
         $this->NomAgent = htmlspecialchars(strip_tags($NomAgentIn));
         $this->PrenomAgent = htmlspecialchars(strip_tags($PrenomAgentIn));
         $this->DateNais = htmlspecialchars(strip_tags($DateNaisIn));
@@ -52,16 +56,16 @@ class Agent implements CrudAgentInterface
 
         $this->password =  password_hash($passwordIn, PASSWORD_ARGON2ID);
 
-        var_dump($this);
-        $sql = "INSERT INTO `" . $this->dataBaseTable . "`(`NomAgent`, `PrenomAgent`, `DateNais`, `DatePSce`, `Password`)" . " VALUES('" 
-        . $this->NomAgent . "', '" . $this->PrenomAgent . "', '" . $this->DateNais . "', '" . $this->DatePSce . "', '" . $this->password ."')";
+        $sql = "INSERT INTO `" . $this->dataBaseTable . "`(`Email`, `Username`,`NomAgent`, `PrenomAgent`, `DateNais`, `DatePSce`, `Password`)" . " VALUES('" 
+        . $this->Email . "', '" . $this->Username . "', '" . $this->NomAgent . "', '" . $this->PrenomAgent . "', '" . $this->DateNais . "', '" . $this->DatePSce . "', '" . $this->password ."')";
         $query = $this->connection->prepare($sql);
         $query->execute();
         return $query;
     }
 
-    public function updateAgent(string $NomAgentIn, string $PrenomAgentIn, string $DateNaisIn, string $DatePSceIn, string $passwordIn)
+    public function updateAgent(string $EmailIn, string $UsernameIn, string $NomAgentIn, string $PrenomAgentIn, string $DateNaisIn, string $DatePSceIn, string $passwordIn)
     {
+        $this->Email = htmlspecialchars(strip_tags($EmailIn));
         $this->NomAgent = htmlspecialchars(strip_tags($NomAgentIn));
         $this->PrenomAgent = htmlspecialchars(strip_tags($PrenomAgentIn));
         $this->DateNais = htmlspecialchars(strip_tags($DateNaisIn));
@@ -71,19 +75,19 @@ class Agent implements CrudAgentInterface
 
         $sql = "UPDATE " . $this->dataBaseTable .
             " SET " .
-            " NomAgent = '" . $this->NomAgent . "', PrenomAgent = '" . $this->PrenomAgent . "', DateNais = " . $this->DateNais . ", DatePSce = " . $this->DatePSce . ", Password = '" . $this->password . 
+            " Email = '" . $this->Email . " Username = '" . $this->Username . " NomAgent = '" . $this->NomAgent . "', PrenomAgent = '" . $this->PrenomAgent . "', DateNais = " . $this->DateNais . ", DatePSce = " . $this->DatePSce . ", Password = '" . $this->password . 
             "' WHERE " . "NumMatr = " . $this->NumMatr;
         $query = $this->connection->prepare($sql);
         $query->execute();
         return $query;
     }
 
-    public function deleteAgent(int $idIn)
+    public function deleteAgent(int $NumMatrIn)
     {
-        $this->id = htmlspecialchars(strip_tags($idIn));
+        $this->NumMatr = htmlspecialchars(strip_tags($NumMatrIn));
         $sql = "DELETE FROM " . $this->dataBaseTable . " WHERE NumMatr = :NumMatr";
         $query = $this->connection->prepare($sql);
-        $query->bindParam(":NumMatr", $this->id);
+        $query->bindParam(":NumMatr", $this->NumMatr);
         $query->execute();
         return $query;
     }

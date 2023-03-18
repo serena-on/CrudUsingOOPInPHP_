@@ -18,7 +18,6 @@ function ReadAll() {
         $entrepotArr["body"] = array();
         $entrepotArr["rowCount"] = $rowCount;
         while ($row = $getEntrepots->fetch(\PDO::FETCH_ASSOC)){
-            var_dump($row);
             extract($row);
             $e = array(
                "CodEntrep" => $CodEntrep,
@@ -28,7 +27,7 @@ function ReadAll() {
             );
             array_push($entrepotArr["body"], $e);
         }
-        return json_encode($entrepotArr);
+        return json_encode($entrepotArr["body"]);
     } else {
         http_response_code(404);
         return json_encode(
@@ -37,4 +36,4 @@ function ReadAll() {
     }
 }
 
-var_dump(ReadAll());
+echo(ReadAll());

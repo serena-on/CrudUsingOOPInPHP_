@@ -18,12 +18,12 @@ function SignIn_() {
     $agent = new Agent( $database);
     $data = json_decode(json_encode($_POST));
     try {
-        if ( !isset($data->PrenomAgent)  && !isset($data->password)) {
+        if ( !isset($data->Username)  && !isset($data->password)) {
             throw new EmptydataException();
          }
          else {
             try{
-                $getAgent = $agent->getAgent(htmlspecialchars(strip_tags($data->PrenomAgent)));
+                $getAgent = $agent->getAgent(htmlspecialchars(strip_tags($data->Username)));
                 $rowCount = $getAgent->rowCount();
 
                 if ($rowCount > 0) {
@@ -37,6 +37,7 @@ function SignIn_() {
                             "NomAgent" => $NomAgent,
                             "PrenomAgent" => $PrenomAgent,
                             "DateNais" => $DateNais,
+                            "Username" => $Username,
                             "DatePSce" => $DatePSce,
                             "Password" => $Password
                          );

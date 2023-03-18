@@ -61,8 +61,8 @@ class Entrepot implements CrudEntrepotInterface
 
         $sql = "UPDATE " . $this->dataBaseTable .
             " SET " .
-            " CodEntrep = '" . $this->CodEntrep . "', LibEntrep = '" . $this->LibEntrep . "', AdrEntrep = " . $this->AdrEntrep . ", CodLoca = " . $this->CodLoca . 
-            "' WHERE " . "CodEntrep = " . $this->CodEntrep;
+            " CodEntrep = '" . $this->CodEntrep . "', LibEntrep = '" . $this->LibEntrep . "' , AdrEntrep = '" . $this->AdrEntrep . "' , CodLoca = '" . $this->CodLoca . 
+            "' WHERE " . "CodEntrep = '" . $this->CodEntrep . "'";
         $query = $this->connection->prepare($sql);
         $query->execute();
         return $query;

@@ -3,8 +3,7 @@
     require_once('../vendor/autoload.php');
 
     use Exception\EmptydataException;
-    use Exception\TypeAgeException;
-    use Class\Agent;
+    use Class\Entrepot;
     use Configuration\Database;
 
     header("Access-Control-Allow-Origin: *");
@@ -13,22 +12,22 @@
     header("Access-Control-Max-Age: 3600");
     header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
    
-function createAgent_() {
+function updateEntrepot_() {
     $database = new Database();
-    $agent = new Agent( $database);
+    $Entrepot = new Entrepot( $database);
     $data = json_decode(json_encode($_POST));
     try {
-        if (!isset($data->Email) && !isset($data->Username) && !isset($data->NumMatr) && !isset($data->NomAgent) && !isset($data->PrenomAgent) && !isset($data->DateNais) && !isset($data->DatePSce) && !isset($data->password) && !isset($data->Email)) {
+        if (!isset($data->CodEntrep) && !isset($data->LibEntrep) && !isset($data->AdrEntrep) && !isset($data->CodLoca) ) {
             throw new EmptydataException();
          }
          else {
             try{
-                if($agent->createAgent(UsernameIn: $data->Username, NomAgentIn: $data->NomAgent, PrenomAgentIn: $data->PrenomAgent, DateNaisIn: $data->DateNais, DatePSceIn: $data->DatePSce, passwordIn: $data->password, EmailIn: $data->Email)){
+                if($Entrepot->updateEntrepot( CodEntrepIn: $data->CodEntrep, LibEntrepIn: $data->LibEntrep, AdrEntrepIn: $data->AdrEntrep,  CodLocaIn: $data->CodLoca)){
                     http_response_code(201);
-                    echo json_encode(array("message" => "Agent created"));
+                    echo json_encode(array("message" => "Entrepot updated"));
                 } else{
                     http_response_code(503);
-                    echo json_encode(array("message" => "Agent could not be created."));
+                    echo json_encode(array("message" => "Entrepot could not be updated."));
                 }                   
             }
             catch(Exception $e){
@@ -42,6 +41,4 @@ function createAgent_() {
 }
 
 // var_dump($_POST);
-createAgent_();
-// Modify Table Agent in Database
-// ALTER TABLE `Agent` ADD `NumMatr` INT NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST;
+updateEntrepot_();
