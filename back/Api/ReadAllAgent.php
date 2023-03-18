@@ -25,7 +25,8 @@ function ReadAll() {
                "PrenomAgent" => $PrenomAgent,
                "DateNais" => $DateNais,
                "DatePSce" => $DatePSce,
-               "password" => $Password
+               "password" => $Password,
+               "Username" => $Username
             );
             array_push($agentArr["body"], $e);
         }

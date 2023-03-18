@@ -8,10 +8,10 @@ use Configuration\Database;
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 function read() {
-    if (isset($_POST['PrenomAgent']) &&  !empty($_POST['PrenomAgent'])) {
+    if (isset($_POST['Username']) &&  !empty($_POST['Username'])) {
         $dataBase = new Database();
         $users = new Agent($dataBase);
-        $getAgent = $users->getAgent(htmlspecialchars(strip_tags($_POST['PrenomAgent'])));
+        $getAgent = $users->getAgent(htmlspecialchars(strip_tags($_POST['Username'])));
         $rowCount = $getAgent->rowCount();
 
         if ($rowCount > 0) {
@@ -26,7 +26,8 @@ function read() {
                     "PrenomAgent" => $PrenomAgent,
                     "DateNais" => $DateNais,
                     "DatePSce" => $DatePSce,
-                    "Password" => $Password
+                    "Password" => $Password,
+                    "Username" => $Username
                  );
                 array_push($agentArr["body"], $e);
             }

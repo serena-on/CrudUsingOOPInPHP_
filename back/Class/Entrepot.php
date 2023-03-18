@@ -53,7 +53,7 @@ class Entrepot implements CrudEntrepotInterface
         return $query;
     }
 
-    public function updateEntrepot(string $CodEntrepIn, string $LibEntrepIn, string $AdrEntrepIn, string $CodLocaIn) {
+    public function updateEntrepot(string $CodEntrepOut, string $CodEntrepIn, string $LibEntrepIn, string $AdrEntrepIn, string $CodLocaIn) {
         $this->CodEntrep = htmlspecialchars(strip_tags($CodEntrepIn));
         $this->LibEntrep = htmlspecialchars(strip_tags($LibEntrepIn));
         $this->AdrEntrep = htmlspecialchars(strip_tags($AdrEntrepIn));
@@ -62,7 +62,7 @@ class Entrepot implements CrudEntrepotInterface
         $sql = "UPDATE " . $this->dataBaseTable .
             " SET " .
             " CodEntrep = '" . $this->CodEntrep . "', LibEntrep = '" . $this->LibEntrep . "' , AdrEntrep = '" . $this->AdrEntrep . "' , CodLoca = '" . $this->CodLoca . 
-            "' WHERE " . "CodEntrep = '" . $this->CodEntrep . "'";
+            "' WHERE " . "CodEntrep = '" . $CodEntrepOut . "'";
         $query = $this->connection->prepare($sql);
         $query->execute();
         return $query;

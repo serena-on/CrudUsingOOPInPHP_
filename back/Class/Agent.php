@@ -70,8 +70,9 @@ class Agent implements CrudAgentInterface
         $this->PrenomAgent = htmlspecialchars(strip_tags($PrenomAgentIn));
         $this->DateNais = htmlspecialchars(strip_tags($DateNaisIn));
         $this->DatePSce = htmlspecialchars(strip_tags($DatePSceIn));
+        $this->Username = htmlspecialchars(strip_tags($UsernameIn));
 
-        $this->password =  password_hash($this->password, PASSWORD_ARGON2ID);
+        $this->password =  password_hash($passwordIn, PASSWORD_ARGON2ID);
 
         $sql = "UPDATE " . $this->dataBaseTable .
             " SET " .

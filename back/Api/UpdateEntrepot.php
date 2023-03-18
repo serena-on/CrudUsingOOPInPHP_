@@ -22,7 +22,7 @@ function updateEntrepot_() {
          }
          else {
             try{
-                if($Entrepot->updateEntrepot( CodEntrepIn: $data->CodEntrep, LibEntrepIn: $data->LibEntrep, AdrEntrepIn: $data->AdrEntrep,  CodLocaIn: $data->CodLoca)){
+                if($Entrepot->updateEntrepot(CodEntrepOut: $data->CodEntrepOut, CodEntrepIn: $data->CodEntrep, LibEntrepIn: $data->LibEntrep, AdrEntrepIn: $data->AdrEntrep,  CodLocaIn: $data->CodLoca)){
                     http_response_code(201);
                     echo json_encode(array("message" => "Entrepot updated"));
                 } else{
