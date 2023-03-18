@@ -1,4 +1,8 @@
-fetch('./../../back/Api/ReadAllEntrepot.php')
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const CodEntrep = urlParams.get('CodEntrep');
+
+fetch('./../../back/Api/ReadEntrepot.php?CodEntrep=' + CodEntrep)
   .then(response => response.json())
   .then(data => {
     const CodEntrep = document.getElementById('CodEntrep');

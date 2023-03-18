@@ -8,23 +8,23 @@ use Configuration\Database;
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
-function ReadAll() {
+function Read()
+{
     $dataBase = new Database();
     $entrepots = new Entrepot($dataBase);
-    $getEntrepots = $entrepots->getEntrepots();
-    $rowCount = $getEntrepots->rowCount();
-    var_dump($getEntrepots->fetch(\PDO::FETCH_ASSOC));
+    $getEntrepot = $entrepots->getEntrepot(CodEntrepIn: htmlspecialchars($_GET["CodEntrep"]));
+    $rowCount = $getEntrepot->rowCount();
     if ($rowCount > 0) {
         $entrepotArr = array();
         $entrepotArr["body"] = array();
         $entrepotArr["rowCount"] = $rowCount;
-        while ($row = $getEntrepots->fetch(\PDO::FETCH_ASSOC)){
+        while ($row = $getEntrepot->fetch(\PDO::FETCH_ASSOC)) {
             extract($row);
             $e = array(
-               "CodEntrep" => $CodEntrep,
-               "LibEntrep" => $LibEntrep,
-               "AdrEntrep" => $AdrEntrep,
-               "CodLoca" => $CodLoca
+                "CodEntrep" => $CodEntrep,
+                "LibEntrep" => $LibEntrep,
+                "AdrEntrep" => $AdrEntrep,
+                "CodLoca" => $CodLoca
             );
             array_push($entrepotArr["body"], $e);
         }
@@ -37,4 +37,4 @@ function ReadAll() {
     }
 }
 
-echo(ReadAll());
+echo (Read());

@@ -38,4 +38,4 @@ function ReadAll() {
     }
 }
 
-var_dump(ReadAll());
+echo(ReadAll());
